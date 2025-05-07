@@ -1,59 +1,75 @@
-{
-  "name": "Greenbone Community Edition Setup",
-  "description": "This script automates the setup of Greenbone Community Edition using Docker on Ubuntu systems. It installs dependencies, configures Docker, downloads the official docker-compose file from Greenbone, and sets a predefined admin password.",
-  "version": "1.0",
-  "license": "MIT",
-  "author": "shubham wagh or shubhamwaghagkmf010",
-  "actions": [
-    {
-      "step": "Install Dependencies",
-      "description": "Installs essential packages like curl, gnupg, and ca-certificates required for Docker and HTTPS requests."
-    },
-    {
-      "step": "Remove Conflicting Packages",
-      "description": "Removes any previously installed Docker-related packages that might interfere with a clean installation."
-    },
-    {
-      "step": "Add Docker Repository",
-      "description": "Adds the official Docker APT repository with appropriate GPG keys and architecture settings."
-    },
-    {
-      "step": "Install Docker",
-      "description": "Installs Docker Engine, CLI, container runtime, and Docker Compose plugin."
-    },
-    {
-      "step": "Add User to Docker Group",
-      "description": "Adds the current user to the Docker group to allow Docker usage without root privileges."
-    },
-    {
-      "step": "Create Download Directory",
-      "description": "Creates a directory to store Greenbone's docker-compose.yml file."
-    },
-    {
-      "step": "Download Compose File",
-      "description": "Downloads the latest Greenbone docker-compose.yml directly from the Greenbone documentation site."
-    },
-    {
-      "step": "Pull Docker Images",
-      "description": "Fetches all required Greenbone container images from Docker Hub."
-    },
-    {
-      "step": "Start Containers",
-      "description": "Starts all containers defined in the Greenbone docker-compose file in detached mode."
-    },
-    {
-      "step": "Wait for Initialization",
-      "description": "Waits for 60 seconds to ensure all services inside containers are initialized before setting credentials."
-    },
-    {
-      "step": "Set Default Password",
-      "description": "Updates the default 'admin' user's password to a predefined value ('admin123') using Greenbone's gvmd command inside the container."
-    },
-    {
-      "step": "Open Web Interface",
-      "description": "Opens the Greenbone web interface in the default system browser on port 9392."
-    }
-  ],
-  "usage": "Run the script with root privileges or as a user with sudo access. After execution, log in to http://127.0.0.1:9392 with username 'admin' and password 'admin123'.",
-  "note": "This script is written to be simple and educational. It does not modify system security settings and uses only publicly available installation commands from Greenbone and Docker's official documentation."
-}
+# 🚀 Greenbone Auto-Deploy Script
+
+This project provides a **fully automated shell script** to install and launch the **Greenbone Community Edition (GCE)** using Docker on Ubuntu systems.
+
+> 🔒 The script configures a ready-to-use local vulnerability scanning environment with a predefined admin password — ideal for learning, testing, or personal use.
+
+---
+
+## 💡 What the Script Does
+
+The `greenbone-setup.sh` script performs the following actions step-by-step:
+
+1. **Installs Required Packages**  
+   Installs `curl`, `gnupg`, and `ca-certificates`, which are essential for downloading and verifying Docker components.
+
+2. **Removes Conflicting Docker Packages**  
+   Cleans up older Docker-related packages that may cause conflicts.
+
+3. **Adds Docker’s Official Repository**  
+   Adds Docker’s GPG key and APT repository for stable releases.
+
+4. **Installs Docker and Docker Compose Plugin**  
+   Installs all necessary Docker components for container management.
+
+5. **Adds Current User to Docker Group**  
+   Allows the user to run Docker commands without `sudo`.
+
+6. **Creates Download Directory**  
+   Creates a dedicated folder in the user's home directory to store Greenbone files.
+
+7. **Downloads Official `docker-compose.yml`**  
+   Fetches the latest Greenbone Community Docker Compose file directly from Greenbone’s website.
+
+8. **Pulls Required Container Images**  
+   Downloads all necessary Docker images specified in the Compose file.
+
+9. **Starts the Containers in Background**  
+   Spins up the full Greenbone stack using Docker Compose.
+
+10. **Waits for Initialization**  
+    Allows time for Greenbone services to initialize properly.
+
+11. **Sets Default Admin Password**  
+    Automatically updates the default `admin` user's password to `admin123`.
+
+12. **Opens the Web Interface**  
+    Launches the Greenbone Security Assistant (GSA) web UI at:  
+    **http://127.0.0.1:9392**
+
+---
+
+## 🔐 Login Details
+
+- **Username:** `admin`  
+- **Password:** `admin123`
+
+> You can change the password later using the GSA interface or Greenbone CLI.
+
+---
+
+## ✅ Requirements
+
+- Ubuntu 20.04 or 22.04 (recommended)
+- Sudo privileges
+- Internet access
+
+---
+
+## 📎 How to Use
+
+Once you upload `greenbone-setup.sh` to this repo:
+
+```bash
+chmod +x greenbone-setup.sh
+./greenbone-setup.sh
